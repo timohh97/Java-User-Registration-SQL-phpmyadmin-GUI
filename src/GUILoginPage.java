@@ -12,13 +12,14 @@ public class GUILoginPage extends JFrame {
         private JTextField eingabe2;
         private JButton button;
         private JButton createNewAccountButton;
+        private ScrollPane scrollPane;
 
 
-        public GUILoginPage(String titel) {
+        public GUILoginPage(String titel) throws SQLException, ClassNotFoundException {
 
             setTitle(titel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
-            GridLayout mainLayout = new GridLayout(6,1);
+            GridLayout mainLayout = new GridLayout(7,1);
             mainLayout.setVgap(10);
 
             JPanel panel = new JPanel();
@@ -36,7 +37,7 @@ public class GUILoginPage extends JFrame {
             pack();
             setLocationRelativeTo(null);
             setVisible(true);
-            setResizable(false);
+            setResizable(true);
 
         }
 
@@ -49,7 +50,7 @@ public class GUILoginPage extends JFrame {
             panel.add(eingabe2);
             panel.add(button);
             panel.add(createNewAccountButton);
-
+            panel.add(scrollPane);
         }
 
         private void setColorOfComponents()
@@ -69,10 +70,11 @@ public class GUILoginPage extends JFrame {
             eingabe2.setForeground(Color.WHITE);
             eingabe2.setCaretColor(Color.WHITE);
             eingabe2.setFont(eingabe.getFont().deriveFont(32.0f));
+            scrollPane.setBackground(Color.WHITE);
         }
 
 
-        private void initComponents() {
+        private void initComponents() throws SQLException, ClassNotFoundException {
 
             eingabe = new JTextField(20);
             label = new JLabel("Username:");
@@ -80,6 +82,10 @@ public class GUILoginPage extends JFrame {
             label2 = new JLabel("Password:");
             button = new JButton("Login");
             createNewAccountButton = new JButton("Create a new account");
+            scrollPane = new ScrollPane();
+            JLabel tableData = new JLabel(TableDataExtractor.getTableData()+"</html>");
+            tableData.setFont(label.getFont().deriveFont(16.0f));
+            scrollPane.add(tableData);
 
             button.addActionListener(new ActionListener() {
                 @Override

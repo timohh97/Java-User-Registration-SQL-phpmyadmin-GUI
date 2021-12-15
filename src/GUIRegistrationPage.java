@@ -143,7 +143,13 @@ public class GUIRegistrationPage extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GUILoginPage gui = new GUILoginPage("Login");
+                try {
+                    GUILoginPage gui = new GUILoginPage("Login");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
                 dispose();
             }
         });
