@@ -12,6 +12,7 @@ public class GUILoginPage extends JFrame {
         private JTextField eingabe2;
         private JButton button;
         private JButton createNewAccountButton;
+        private JButton deleteAccountButton;
         private ScrollPane scrollPane;
 
 
@@ -19,7 +20,7 @@ public class GUILoginPage extends JFrame {
 
             setTitle(titel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
-            GridLayout mainLayout = new GridLayout(7,1);
+            GridLayout mainLayout = new GridLayout(8,1);
             mainLayout.setVgap(10);
 
             JPanel panel = new JPanel();
@@ -50,6 +51,7 @@ public class GUILoginPage extends JFrame {
             panel.add(eingabe2);
             panel.add(button);
             panel.add(createNewAccountButton);
+            panel.add(deleteAccountButton);
             panel.add(scrollPane);
         }
 
@@ -86,6 +88,7 @@ public class GUILoginPage extends JFrame {
             JLabel tableData = new JLabel(TableDataExtractor.getTableData()+"</html>");
             tableData.setFont(label.getFont().deriveFont(16.0f));
             scrollPane.add(tableData);
+            deleteAccountButton = new JButton("Delete my account");
 
             button.addActionListener(new ActionListener() {
                 @Override
@@ -135,6 +138,20 @@ public class GUILoginPage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     GUIRegistrationPage gui = new GUIRegistrationPage("Create a new account");
+                    dispose();
+                }
+            });
+
+            deleteAccountButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        GUIDeleteAccount gui = new GUIDeleteAccount("Delete my account");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    } catch (ClassNotFoundException classNotFoundException) {
+                        classNotFoundException.printStackTrace();
+                    }
                     dispose();
                 }
             });
